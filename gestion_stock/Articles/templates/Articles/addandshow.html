@@ -1,0 +1,58 @@
+{% extends "Articles/base.html" %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-3">
+            <h4 class="text-center alert alert-info"> Ajout d'un Article</h4>
+            <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <input type="submit"  class="btn btn-success"  value="Ajouter">
+    </form>
+    </div>
+
+    <div class="col-sm-9">
+        <h4 class="text-center alert alert-info"> LISTES DES BOISSONS DISPONIBLES</h4> 
+
+        {% if art %}
+            <table class ="table table-over">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">P.Achat</th>
+                        <th scope="col">P.Vente</th>
+                        <th scope="col">Qté</th>
+                        <th scope="col">Modele</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {% for ar in art %}
+                    <tr> 
+                        <th scope="col">{{ar.id}}</th>
+                        <td> {{ar.nom_article}}</td>
+                        <td> {{ar.prix_achat}}</td>
+                        <td> {{ar.prix_vente}}</td>
+                        <td> {{ar.quantite}}</td>
+                        <td> {{ar.modele}}</td>
+                        <td> {{ar.categorie}}</td>
+                        <td> 
+                            <a href="{% url 'update_article'  ar.id %}"  class = "btn btn-warning btn-sm">Modifier</a>
+                            <a href="{% url 'delete_article'  ar.id %}"  class = "btn btn-danger btn-sm">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4 class="text-center alert alert-warning">Aucun article enregistré </h4>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock content %}
+

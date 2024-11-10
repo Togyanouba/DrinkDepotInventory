@@ -1,0 +1,51 @@
+{% extends "stock/base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-3">
+            <h4 class="text-center alert alert-info"> Ajout d'une Entrée de Stock</h4>
+            <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <input type="submit" class="btn btn-success" value="Ajouter">
+            </form>
+        </div>
+
+        <div class="col-sm-9">
+            <h4 class="text-center alert alert-info"> LISTE DES ENTRÉES DE STOCK</h4> 
+
+            {% if entrees %}
+                <table class="table table-over">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date d'Achat</th>
+                            <th scope="col">Numéro de Commande</th>
+                            <th scope="col">Article</th>
+                            <th scope="col">Quantité</th>
+                            <th scope="col">Coût Total</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {% for entree in entrees %}
+                        <tr> 
+                            <td>{{ entree.date_achat }}</td>
+                            <td>{{ entree.numero_de_commande }}</td>
+                            <td>{{ entree.nom_article.nom_article }}</td>
+                            <td>{{ entree.quantite }}</td>
+                            <td>{{ entree.cout_total }}</td>
+                            <td> 
+                                <a href="{% url 'update_entree_stock'  entree.id %}"  class = "btn btn-warning btn-sm">Modifier</a>
+                                <a href="{% url 'delete_entree_stock'  entree.id %}"  class = "btn btn-danger btn-sm">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h4 class="text-center alert alert-warning">Aucune entrée de stock enregistrée</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

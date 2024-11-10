@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des articles</title>
+    <link rel="stylesheet" href="{% static 'Articles/css/bootstrap.css' %}">
+</head>
+<body>
+    
+    <div class="container mt-5">
+        <h2 class="text-center alert alert-danger">GESTION DES ARTICLES</h2>
+
+        {% block content %}{% endblock content %}
+
+    </div>
+
+    <script src = "{% static 'Articles/js/jquery.js' %}"> </script>
+    <script src = "{% static 'Articles/js/popper.js' %}"> </script>
+    <script src = "{% static 'Articles/js/bootstrap.js' %}"> </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends "stock/base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-3">
+            <h4 class="text-center alert alert-info"> Ajout d'une Sortie de Stock</h4>
+            <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <input type="submit" class="btn btn-success" value="Ajouter">
+            </form>
+        </div>
+
+        <div class="col-sm-9">
+            <h4 class="text-center alert alert-info"> LISTE DES SORTIES DE STOCK</h4> 
+
+            {% if sorties %}
+                <table class="table table-over">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date de Vente</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Article</th>
+                            <th scope="col">Quantité</th>
+                            <th scope="col">Prix Total</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {% for sortie in sorties %}
+                        <tr> 
+                            <td>{{ sortie.date_vente }}</td>
+                            <td>{{ sortie.client }}</td>
+                            <td>{{ sortie.nom_article.nom_article }}</td>
+                            <td>{{ sortie.quantite }}</td>
+                            <td>{{ sortie.prix_total }}</td>
+                            <td> 
+                                <a href="{% url 'update_sortie_stock'  sortie.id %}"  class="btn btn-warning btn-sm">Modifier</a>
+                                <a href="{% url 'delete_sortie_stock'  sortie.id %}"  class="btn btn-danger btn-sm">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h4 class="text-center alert alert-warning">Aucune sortie de stock enregistrée</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends "Articles/base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8 offset-md-2">
+            <h4 class="alert alert-info"> Modifier un Article </h4>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit"  class="btn btn-success offset-md-3"  value="Enregistrer les modifications">
+                <a href="{% url 'add_show'%}" class ="btn btn-info">Retour à page d'article </a>
+            </form>
+    </div>
+{% endblock content %}
+
